@@ -71,13 +71,13 @@ http://127.0.0.1:5000/
 ## Screenshots
 
 ### Home Page
-![Home Page](./hexart/screenshots/home.png)
+![Home Page](.screenshots/home.png)
 
 ### Result Page
-![Result Page](./hexart/screenshots/result.png)
+![Result Page](./screenshots/result.png)
 
 ### Terminal Output
-![Terminal](./hexart/screenshots/terminal.png)
+![Terminal](./screenshots/terminal.png)
 
 
 🎯 Use Case
