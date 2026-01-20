@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Additional styles for the footer */
+        footer {
+            margin-top: 40px;
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 14px;
+            border-top: 3px solid #4caf50;
+        }
+
+        footer a {
+            color: #4caf50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style for the image container */
+        .image-container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        image-container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: center; /* Center the image horizontally */
+    }
+
+    .image-container img {
+        width: 350px; /* Set the image width to make it smaller */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 10px; /* Add a slight rounding for aesthetics */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for visual enhancement */
+    }
+    </style>
+</head>
+<body>
+    <h1>Breast Cancer Detection</h1>
+
+    <!-- Image Section -->
+    <div class="image-container">
+        <img src="https://static.vecteezy.com/system/resources/previews/001/396/919/non_2x/cartoon-women-group-with-pink-support-ribbon-vector.jpg" alt="Breast Cancer Awareness Image">
+    </div>
+
+    <form id="prediction-form">
+        <label for="clump_thickness">Clump Thickness:</label>
+        <input type="number" id="clump_thickness" name="Clump Thickness" step="0.1" min="0" required><br>
+
+        <label for="uniform_cell_size">Uniform Cell Size:</label>
+        <input type="number" id="uniform_cell_size" name="Uniform Cell Size" step="0.1" min="0" required><br>
+
+        <label for="uniform_cell_shape">Uniform Cell Shape:</label>
+        <input type="number" id="uniform_cell_shape" name="Uniform Cell Shape" step="0.1" min="0" required><br>
+
+        <label for="marginal_adhesion">Marginal Adhesion:</label>
+        <input type="number" id="marginal_adhesion" name="Marginal Adhesion" step="0.1" min="0" required><br>
+
+        <label for="single_epithelial_cell_size">Single Epithelial Cell Size:</label>
+        <input type="number" id="single_epithelial_cell_size" name="Single Epithelial Cell Size" step="0.1" min="0" required><br>
+
+        <label for="bare_nuclei">Bare Nuclei:</label>
+        <input type="number" id="bare_nuclei" name="Bare Nuclei" step="0.1" min="0" required><br>
+
+        <label for="bland_chromatin">Bland Chromatin:</label>
+        <input type="number" id="bland_chromatin" name="Bland Chromatin" step="0.1" min="0" required><br>
+
+        <label for="normal_nucleoli">Normal Nucleoli:</label>
+        <input type="number" id="normal_nucleoli" name="Normal Nucleoli" step="0.1" min="0" required><br>
+
+        <label for="mitoses">Mitoses:</label>
+        <input type="number" id="mitoses" name="Mitoses" step="0.1" min="0" required><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <h2>Prediction Result:</h2>
+    <div id="prediction-result"></div>
+
+    <footer>
+        &copy; 2025 Breast Cancer Prediction Tool. All rights reserved. |
+        <a href="mailto:support@example.com">Contact Us</a>
+    </footer>
+
+    <script>
+        document.getElementById("prediction-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
+            fetch("/predict", {
+                method: "POST",
+                body: new URLSearchParams(formObject),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("prediction-result").innerText = data.prediction;
+            })
+            .catch(error => {
+                document.getElementById("prediction-result").innerText = "Error: " + error;
+            });
+        });
+    </script>
+</body>
+</html>
